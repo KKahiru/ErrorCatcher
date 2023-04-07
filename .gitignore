@@ -1,0 +1,8 @@
+#
+# macOS files
+#
+.DS_Store
+# personal files
+/*.xcodeproj/xcuserdata
+# build
+*.app
