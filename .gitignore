@@ -13,5 +13,5 @@ xcuserdata/
 .vs
 Intermediate
 # build
-.exe
+*.exe
 AS_DEBUG
