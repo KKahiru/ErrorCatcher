@@ -1,4 +1,4 @@
-# pragma once
+﻿# pragma once
 
 # include <Siv3D.hpp> // OpenSiv3D v0.6.8
 
@@ -50,17 +50,11 @@ inline Optional<T> AccessArray(const Array<T>& array, size_t index)
 	if (index < array.size())
 	{
 		return Optional<T>(array[index]);
-	} else
+	}
+	else
 	{
 		return none;
 	}
-}
-
-template <typename T>
-inline auto RTTI(const T& data)
-{
-	int status;
-	return abi::__cxa_demangle(typeid(data).name(), 0, 0, &status );
 }
 
 inline JSON exceptionConfig;

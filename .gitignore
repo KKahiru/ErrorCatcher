@@ -6,3 +6,12 @@
 xcuserdata/
 # build
 *.app
+
+#
+# Windows files
+#
+.vs
+Intermediate
+# build
+.exe
+AS_DEBUG
