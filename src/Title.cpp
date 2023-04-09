@@ -9,11 +9,11 @@ Decolation::Decolation()
 	for (int i = 0; i < Random(2, 5); i++) {
 		if (b)
 		{
-			line.push_back(line.back().movedBy(m1 * Random(10, 100), 0));
+			line.push_back(line.back().movedBy(m1 * Random(30, 80), 0));
 		}
 		else
 		{
-			line.push_back(line.back().movedBy(0, m2 * Random(10, 100)));
+			line.push_back(line.back().movedBy(0, m2 * Random(30, 80)));
 		}
 		b = !b;
 	}

@@ -3,6 +3,6 @@
 #
 .DS_Store
 # personal files
-/*.xcodeproj/xcuserdata
+xcuserdata/
 # build
 *.app

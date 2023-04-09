@@ -65,11 +65,16 @@ private:
 	
 	double generateTick = 0;
 	
-	const uint16 leftMargin = 10;
+	// 実際のラインの数はmaxLine + 1になる
+	const uint16 maxLine = 5;
 	
 	const uint16 lineWidth = 100;
 	
+	const uint16 leftMargin = (Scene::Width() - lineWidth * (maxLine + 1)) / (maxLine + 2);
+	
 	const uint16 topMargin = 10;
+	
+	const uint16 lineHeight = Scene::Height() - topMargin * 2 - lineWidth;
 	
 	const float symbol = 0.1;
 	
@@ -78,11 +83,6 @@ private:
 	double symbolTopMargin;
 	
 	const uint16 symbolLeftMargin = 10;
-	
-	const uint16 lineHeight = Scene::Height() - topMargin * 2 - lineWidth;
-	
-	// 実際のラインの数はmaxLine + 1になる
-	const uint16 maxLine = 5;
 	
 	const AdvancedGIF explosionGIF{ Resource(U"resource/gif/explosion.gif"), TextureDesc::Mipped };
 	

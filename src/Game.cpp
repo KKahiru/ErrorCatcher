@@ -59,7 +59,7 @@ void Game::update()
 		generateTick += Scene::DeltaTime() / 0.1;
 		while (generateTick >= 1)
 		{
-			if (RandomBool( 0.12 + brokenness / 20))
+			if (RandomBool( 0.12 + brokenness / 60))
 			{
 				const String type = ExcTypeList[Random(ExcTypeList.size() - 1)];
 				fallenExcList.push_back(realizedExc(type, Random(maxLine)));
@@ -96,22 +96,6 @@ void Game::update()
 				optionalDurability = AccessArray<uint8>( *optionalDurabilityLine, xIndex);
 			}
 			
-			/*if (item.invasionDegree > 1)
-			{
-				// 最後までいった時の処理
-				brokenness += item.Damage() * 2;
-				// 爆発エフェクトの追加
-				effect.add([item, leftX, topY, lineWidth = this->lineWidth, explosionGIF = this->explosionGIF](double t)
-				{
-					// Circle{ Arg::topLeft(leftX, topY), lineWidth / 2 }.draw(Palette::Red);
-					explosionGIF.getFrame(t).resized(lineWidth).draw(leftX, topY);
-					return (t < 1.0);
-				});
-				const double pan = double(item.lineNum * 2) / maxLine - 1;
-				explosionAudio.playOneShot(0.5, pan);
-				fallenExcList.remove_at(i);
-			}
-			else*/
 			if (Circle{ Arg::topLeft(leftX, topY), lineWidth / 2 }.leftClicked())
 			{
 				// クリック時の処理
@@ -262,7 +246,7 @@ void Game::draw() const
 				y = dy - h;
 				
 				FontAsset(U"Game.Explanation")
-				(U"↓の四角と先程の例外が当たると爆発し、ダメージが与えられます。\n特に一番下の「サーバー」は最優先で守る必要があり、\nサーバーを破壊されるとゲームオーバーになります。\n（クリックしてゲーム開始！）")
+				(U"↓の四角と先程の例外が当たると爆発し、ダメージが与えられます。\n特に一番下の「サーバー」は最優先で守る必要があり\nサーバーを破壊されるとゲームオーバーになります。\n（クリックしてゲーム開始！）")
 				.draw(Rect{ x, y, w, h });
 			default:
 				break;
