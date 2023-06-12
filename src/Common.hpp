@@ -1,4 +1,4 @@
-﻿# pragma once
+# pragma once
 
 # include <Siv3D.hpp> // OpenSiv3D v0.6.8
 
@@ -33,7 +33,7 @@ inline String Format_uint32_Size(uint32 byte)
 	}
 	while (true)
 	{
-		if (byte < 1000000)
+		if (byte < 1000000 or i == sizeof(unitList) / sizeof(String) - 1)
 		{
 			// double型のbyteを1000で割ってから、小数点第二位で丸めるために100をかけてから丸めて100で割る
 			// 実際は簡略化して10で割ってから丸める

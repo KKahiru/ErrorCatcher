@@ -56,15 +56,15 @@ void Game::update()
 	if (not isGamePaused)
 	{
 		// 0.1秒間隔で例外の生成処理を行う
-		generateTick += Scene::DeltaTime() / 0.1;
-		while (generateTick >= 1)
+		generateTick += Scene::DeltaTime();
+		while (generateTick >= 0.1)
 		{
-			if (RandomBool( 0.12 + brokenness / 60))
+			generateTick -= 0.1;
+			if (RandomBool( 0.15 + brokenness / 60))
 			{
 				const String type = ExcTypeList[Random(ExcTypeList.size() - 1)];
 				fallenExcList.push_back(realizedExc(type, Random(maxLine)));
 			}
-			generateTick --;
 		}
 		
 		//
@@ -161,7 +161,7 @@ void Game::update()
 	//
 	switch (explanationState) {
 		case 0:
-			if (Circle{ Arg::topLeft(topMargin, leftMargin), lineWidth / 2 }.leftClicked())
+			if (Circle{ Arg::topLeft(leftMargin, topMargin), lineWidth / 2 }.leftClicked())
 			{
 				explanationState ++;
 				fallenExcList.pop_back();
@@ -196,11 +196,25 @@ void Game::draw() const
 			const double x = symbolLeftMargin + (symbolWidth + symbolLeftMargin) * Parse<uint16>(itemObject.key);
 			const uint8 durability = symbolDurability[Parse<uint16>(lineObject.key)][Parse<uint16>(itemObject.key)];
 			
-			if(durability)
+			if (durability)
 			{
 				RectF box{x, y, symbolWidth, symbolHeight};
-				box.draw(Palette::Gray);
-				//Logger << (itemValue.getType() == JSONValueType::String);
+				ColorF color;
+				switch (durability) {
+					case 3:
+						color = Palette::Green;
+						break;
+					case 2:
+						color = Palette::Orange;
+						break;
+					case 1:
+						color = Palette::Red;
+						break;
+					default:
+						color = Palette::Gray;
+						break;
+				}
+				box.draw(color);
 				FontAsset(U"Game.SymbolName")(itemValue.get<String>()).drawAt(box.center());
 			}
 		}
