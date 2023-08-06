@@ -4,6 +4,8 @@
 
 void Main()
 {
+	Window::SetTitle(U"ExceptionCatcher");
+	
 	FontAsset::Register(U"Title.TitleFont", FontMethod::SDF, 50, Typeface::Bold);
 	FontAsset::Register(U"Menu", FontMethod::MSDF, 40, Typeface::Medium);
 	FontAsset::Register(U"GameScore", 30, Typeface::Light);
