@@ -206,9 +206,11 @@ void Game::draw() const
 						break;
 					case 2:
 						color = Palette::Orange;
+						box.moveBy(Periodic::Sine1_1(1) * 5, Periodic::Sine1_1(1.5, Scene::Time()) * 5);
 						break;
 					case 1:
 						color = Palette::Red;
+						box.moveBy(Periodic::Sine1_1(0.5) * 7, Periodic::Sine1_1(1, Scene::Time()) * 7);
 						break;
 					default:
 						color = Palette::Gray;
