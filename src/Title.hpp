@@ -15,10 +15,10 @@ public:
 
 private:
 
-	Rect m_startButton{ Arg::center = Scene::Center().movedBy(0, 50), 300, 60 };
+	Rect m_startButton{ Arg::center = CenterPos.movedBy(0, 50), 300, 60 };
 	Transition m_startTransition{ 0.4s, 0.2s };
 
-	Rect m_exitButton{ Arg::center = Scene::Center().movedBy(0, 150), 300, 60 };
+	Rect m_exitButton{ Arg::center = CenterPos.movedBy(0, 150), 300, 60 };
 	Transition m_exitTransition{ 0.4s, 0.2s };
 	
 	Effect m_effect;

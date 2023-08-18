@@ -63,4 +63,12 @@ inline JSON symbolConfig;
 
 inline Array<String> ExcTypeList;
 
+// 元のシーンのサイズ
+inline const Size BaseSceneSize{ 800, 600 };
+// 中心の座標
+inline const Point CenterPos = BaseSceneSize / 2;
+
+inline const double SceneWidth = BaseSceneSize.x;
+inline const double SceneHeight = BaseSceneSize.y;
+
 using App = SceneManager<SceneState, GameData>;

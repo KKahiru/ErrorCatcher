@@ -70,11 +70,11 @@ private:
 	
 	const uint16 lineWidth = 100;
 	
-	const uint16 leftMargin = (Scene::Width() - lineWidth * (maxLine + 1)) / (maxLine + 2);
+	const uint16 leftMargin = (SceneWidth - lineWidth * (maxLine + 1)) / (maxLine + 2);
 	
 	const uint16 topMargin = 10;
 	
-	const uint16 lineHeight = Scene::Height() - topMargin * 2 - lineWidth;
+	const uint16 lineHeight = SceneHeight - topMargin * 2 - lineWidth;
 	
 	const float symbol = 0.1;
 	

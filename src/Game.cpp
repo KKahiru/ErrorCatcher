@@ -188,8 +188,8 @@ void Game::draw() const
 	const JSON symbols = symbolConfig[0];
 	for (const auto& lineObject : symbols)
 	{
-		const double symbolWidth = (Scene::Width() - symbolLeftMargin) / lineObject.value.size() - symbolLeftMargin;
-		const double y = Scene::Height() - ( topMargin + (symbolHeight + symbolTopMargin) * (Parse<uint16>(lineObject.key) + 1) );
+		const double symbolWidth = (SceneWidth - symbolLeftMargin) / lineObject.value.size() - symbolLeftMargin;
+		const double y = SceneHeight - ( topMargin + (symbolHeight + symbolTopMargin) * (Parse<uint16>(lineObject.key) + 1) );
 		for (const auto& itemObject : lineObject.value)
 		{
 			const JSON itemValue = itemObject.value;
@@ -244,8 +244,8 @@ void Game::draw() const
 			case 0:
 				x = lineWidth + leftMargin * 2;
 				y = topMargin * 2;
-				dx = Scene::Width() - leftMargin;
-				dy = Scene::Height() - topMargin;
+				dx = SceneWidth - leftMargin;
+				dy = SceneHeight - topMargin;
 				w = dx - x;
 				h = dy - y;
 				
@@ -254,10 +254,10 @@ void Game::draw() const
 					.draw(Rect{ x, y, w, h });
 				break;
 			case 1:
-				dx = Scene::Width() - leftMargin;
+				dx = SceneWidth - leftMargin;
 				x = leftMargin;
-				w = Scene::Width() - leftMargin - x;
-				dy = Scene::Height() * 0.8 - topMargin;
+				w = SceneWidth - leftMargin - x;
+				dy = SceneHeight * 0.8 - topMargin;
 				h = FontAsset(U"Game.Explanation").fontSize() * 8;
 				y = dy - h;
 				

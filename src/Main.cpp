@@ -5,6 +5,8 @@
 void Main()
 {
 	Window::SetTitle(U"ExceptionCatcher");
+	Scene::Resize(BaseSceneSize);
+	Scene::SetResizeMode(ResizeMode::Actual);
 	
 	FontAsset::Register(U"Title.TitleFont", FontMethod::SDF, 50, Typeface::Bold);
 	FontAsset::Register(U"Menu", FontMethod::MSDF, 40, Typeface::Medium);
@@ -27,6 +29,12 @@ void Main()
 	manager.add<Game>(SceneState::Game);
 	
 	while (System::Update()) {
+		// 実際のシーンのサイズを取得する
+		const Size currentSceneSize = Scene::Size();
+		// 何倍に拡大すればいいかを計算する
+		const double scale = Min(currentSceneSize.x / BaseSceneSize.x, currentSceneSize.y / BaseSceneSize.y);
+		// 描画とマウス座標にスケーリングを適用する
+		const Transformer2D scaling{ Mat3x2::Scale(scale), TransformCursor::Yes };
 		if (not manager.update()) {
 			break;
 		}
