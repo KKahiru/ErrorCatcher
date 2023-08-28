@@ -57,7 +57,7 @@ private:
 	
 	Effect effect;
 	
-	bool isGamePaused = 1;
+	bool isExplaining = 1;
 	
 	uint8 explanationState = 0;
 	
@@ -87,5 +87,7 @@ private:
 	const AdvancedGIF explosionGIF{ Resource(U"resource/gif/explosion.gif"), TextureDesc::Mipped };
 	
 	const Audio explosionAudio{ Resource(U"resource/sound/explosion.mp3") };
+	
+	static constexpr RectF backButton{ SceneWidth - 110, 10, 100, 50 };
 	
 };

@@ -13,7 +13,8 @@ void Main()
 	FontAsset::Register(U"GameScore", 30, Typeface::Light);
 	FontAsset::Register(U"Game.ExcName", 20, Typeface::Light);
 	FontAsset::Register(U"Game.SymbolName", 20, Typeface::Light);
-	FontAsset::Register(U"Game.Explanation", 30);
+	FontAsset::Register(U"Game.Explanation", 28);
+	FontAsset::Register(U"Game.Back", 32);
 	AudioAsset::Register(U"Brick", GMInstrument::Woodblock, PianoKey::C5, 0.2s, 0.1s);
 	
 	exceptionConfig = JSON::Load(Resource(U"resource/config/exception_list.json"));
@@ -32,7 +33,7 @@ void Main()
 		// 実際のシーンのサイズを取得する
 		const Size currentSceneSize = Scene::Size();
 		// 何倍に拡大すればいいかを計算する
-		const double scale = Min(currentSceneSize.x / BaseSceneSize.x, currentSceneSize.y / BaseSceneSize.y);
+		const double scale = Min(currentSceneSize.x / SceneWidth, currentSceneSize.y / SceneHeight);
 		// 描画とマウス座標にスケーリングを適用する
 		const Transformer2D scaling{ Mat3x2::Scale(scale), TransformCursor::Yes };
 		if (not manager.update()) {

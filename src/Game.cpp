@@ -53,27 +53,29 @@ Game::Game(const InitData& init)
 
 void Game::update()
 {
+	// 戻るボタンの処理
+	if (backButton.leftReleased()) changeScene(SceneState::Title);
 	// カーソルがはみ出ないようにする処理
 	{
 		if (Cursor::Pos().x < 5)
 		{
 			Cursor::SetPos(5, Cursor::Pos().y);
 		}
-		else if (Cursor::Pos().x > BaseSceneSize.x - 5)
+		else if (Cursor::Pos().x > SceneWidth - 5)
 		{
-			Cursor::SetPos(BaseSceneSize.x - 5, Cursor::Pos().y);
+			Cursor::SetPos(SceneWidth - 5, Cursor::Pos().y);
 		}
 		if (Cursor::Pos().y < 5)
 		{
 			Cursor::SetPos(Cursor::Pos().x, 5);
 		}
-		else if (Cursor::Pos().y > BaseSceneSize.y - 5)
+		else if (Cursor::Pos().y > SceneHeight - 5)
 		{
-			Cursor::SetPos(Cursor::Pos().x, BaseSceneSize.y - 5);
+			Cursor::SetPos(Cursor::Pos().x, SceneHeight - 5);
 		}
 	}
 	
-	if (not isGamePaused)
+	if (not isExplaining)
 	{
 		// 0.1秒間隔で例外の生成処理を行う
 		generateTick += Scene::DeltaTime();
@@ -170,7 +172,7 @@ void Game::update()
 						}
 						return true;
 					});
-					isGamePaused = true;
+					isExplaining = true;
 				}
 				
 			}
@@ -191,7 +193,7 @@ void Game::update()
 			if (MouseL.down())
 			{
 				explanationState ++;
-				isGamePaused = 0;
+				isExplaining = 0;
 			}
 		default:
 			break;
@@ -200,7 +202,6 @@ void Game::update()
 
 void Game::draw() const
 {
-	ClearPrint();
 	
 	//
 	// シンボルの描画
@@ -270,7 +271,7 @@ void Game::draw() const
 				h = dy - y;
 				
 				FontAsset(U"Game.Explanation")
-					(U"←は「例外」（いわゆるエラー）と呼ばれるもので、上から降ってきます。\nあなたの目的はこれをクリックして取り除く事です。\n（例外をクリックして続行）")
+					(U"←は「例外」（エラー）と呼ばれるもので、\n上から降ってきます。\nあなたの目的はこれをクリックして取り除く事です。\n（例外をクリックしてください）")
 					.draw(Rect{ x, y, w, h });
 				break;
 			case 1:
@@ -282,13 +283,17 @@ void Game::draw() const
 				y = dy - h;
 				
 				FontAsset(U"Game.Explanation")
-				(U"↓の四角と先程の例外が当たると爆発し、ダメージが与えられます。\n特に一番下の「サーバー」は最優先で守る必要があり\nサーバーを破壊されるとゲームオーバーになります。\n（クリックしてゲーム開始！）")
+				(U"↓の四角と先程の例外が当たると爆発し、ダメージが入ります。\n特に一番下の「サーバー」は最優先で守る必要があり\nサーバーを破壊されるとゲームオーバーになります。\n（クリックしてゲーム開始！）")
 				.draw(Rect{ x, y, w, h });
 			default:
 				break;
 		}
 	}
-	Print << U"破壊されたデータ量: " << Format_uint32_Size(1000 * brokenness);
 	effect.update();
+	if (not isExplaining)
+	{
+		backButton.rounded(5).draw(ColorF{ 0, 0.5 }).drawFrame();
+		FontAsset(U"Game.Back")(U"戻る").drawAt(backButton.center(), Palette::White);
+	}
 }
 
