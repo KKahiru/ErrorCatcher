@@ -53,6 +53,26 @@ Game::Game(const InitData& init)
 
 void Game::update()
 {
+	// カーソルがはみ出ないようにする処理
+	{
+		if (Cursor::Pos().x < 5)
+		{
+			Cursor::SetPos(5, Cursor::Pos().y);
+		}
+		else if (Cursor::Pos().x > BaseSceneSize.x - 5)
+		{
+			Cursor::SetPos(BaseSceneSize.x - 5, Cursor::Pos().y);
+		}
+		if (Cursor::Pos().y < 5)
+		{
+			Cursor::SetPos(Cursor::Pos().x, 5);
+		}
+		else if (Cursor::Pos().y > BaseSceneSize.y - 5)
+		{
+			Cursor::SetPos(Cursor::Pos().x, BaseSceneSize.y - 5);
+		}
+	}
+	
 	if (not isGamePaused)
 	{
 		// 0.1秒間隔で例外の生成処理を行う
