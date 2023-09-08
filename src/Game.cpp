@@ -77,15 +77,17 @@ void Game::update()
 	
 	if (not isExplaining)
 	{
-		// 0.1秒間隔で例外の生成処理を行う
+		// 0.2秒間隔で例外の生成処理を行う
 		generateTick += Scene::DeltaTime();
-		while (generateTick >= 0.1)
+		while (generateTick >= 0.2)
 		{
-			generateTick -= 0.1;
-			if (RandomBool( 0.15 + brokenness / 60))
+			generateTick -= 0.2;
+			generationProgress += (0.15 + pow(brokenness, 0.5) / 10) * Random(0.6, 1.4);
+			while (generationProgress > 0)
 			{
 				const String type = ExcTypeList[Random(ExcTypeList.size() - 1)];
 				fallenExcList.push_back(realizedExc(type, Random(maxLine)));
+				generationProgress --;
 			}
 		}
 		

@@ -61,9 +61,12 @@ private:
 	
 	uint8 explanationState = 0;
 	
-	float brokenness = 0;
+	double brokenness = 0;
 	
 	double generateTick = 0;
+	
+	// 例外の生成がどれぐらい進んでいるか
+	double generationProgress = 0;
 	
 	// 実際のラインの数はmaxLine + 1になる
 	const uint16 maxLine = 5;
