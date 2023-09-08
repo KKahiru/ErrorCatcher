@@ -183,15 +183,22 @@ void Game::update()
 	//
 	// 説明の遷移処理
 	//
-	switch (explanationState) {
+	switch (explanationState)
+	{
 		case 0:
+			if (MouseL.down())
+			{
+				explanationState ++;
+			}
+			break;
+		case 1:
 			if (Circle{ Arg::topLeft(leftMargin, topMargin), lineWidth / 2 }.leftClicked())
 			{
 				explanationState ++;
 				fallenExcList.pop_back();
 			}
 			break;
-		case 1:
+		case 2:
 			if (MouseL.down())
 			{
 				explanationState ++;
@@ -262,40 +269,60 @@ void Game::draw() const
 	// 説明の描画
 	//
 	{
-		uint16 x, y, dx, dy, w, h;
+		
 		switch (explanationState) {
 			case 0:
-				x = lineWidth + leftMargin * 2;
-				y = topMargin * 2;
-				dx = SceneWidth - leftMargin;
-				dy = SceneHeight - topMargin;
-				w = dx - x;
+			{
+				const uint16 x = lineWidth + leftMargin * 2,
+					y = topMargin * 2,
+				dx = SceneWidth - leftMargin,
+				dy = SceneHeight - topMargin,
+				w = dx - x,
 				h = dy - y;
+				
+				FontAsset(U"Game.Explanation")
+					(U"※このゲームのプレイ中は、\nマウスカーソルがウィンドウ外に出ないようになります。\n「戻る」ボタンでいつでもメニュー画面に戻れます。\n（どこかをクリックしてください）")
+					.draw(Rect{ x, y, w, h });
+				break;
+			}
+				
+			case 1:
+			{
+				const uint16 x = lineWidth + leftMargin * 2,
+					y = topMargin * 2,
+					dx = SceneWidth - leftMargin,
+					dy = SceneHeight - topMargin,
+					w = dx - x,
+					h = dy - y;
 				
 				FontAsset(U"Game.Explanation")
 					(U"←はソフトウェアに発生したエラー\n（専門用語では「例外」）であり、\n上から降ってきます。\nクリックすると取り除く事ができます。\n（エラーをクリックしてください）")
 					.draw(Rect{ x, y, w, h });
 				break;
-			case 1:
-				dx = SceneWidth - leftMargin;
-				x = leftMargin;
-				w = SceneWidth - leftMargin - x;
-				dy = SceneHeight * 0.8 - topMargin;
-				h = FontAsset(U"Game.Explanation").fontSize() * 8;
-				y = dy - h;
+			}
+				
+			case 2:
+			{
+				const uint16 x = leftMargin,
+					dx = SceneWidth - leftMargin,
+					w = dx - x,
+					dy = SceneHeight * 0.8 - topMargin,
+					h = FontAsset(U"Game.Explanation").fontSize() * 8,
+					y = dy - h;
 				
 				FontAsset(U"Game.Explanation")
 				(U"↓の四角と先程のエラーが当たると爆発し、ダメージが入ります。\n特に一番下の「サーバー」は最優先で守る必要があり\nサーバーを破壊されるとゲームオーバーになります。\n（クリックしてゲーム開始！）")
 				.draw(Rect{ x, y, w, h });
+				break;
+			}
+				
 			default:
 				break;
 		}
 	}
 	effect.update();
-	if (not isExplaining)
-	{
-		backButton.rounded(5).draw(ColorF{ 0, 0.5 }).drawFrame();
-		FontAsset(U"Game.Back")(U"戻る").drawAt(backButton.center(), Palette::White);
-	}
+	
+	backButton.rounded(5).draw(ColorF{ 0, 0.5 }).drawFrame();
+	FontAsset(U"Game.Back")(U"戻る").drawAt(backButton.center(), Palette::White);
 }
 
