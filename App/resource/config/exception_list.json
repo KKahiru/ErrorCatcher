@@ -19,5 +19,12 @@
         "speed": 0.3,
         "damage": 2,
         "color": "#DOSE17"
+    },
+    "AE": {
+        "original": "ArithmeticException",
+        "display_name": "0で\n割り算",
+        "speed": 0.25,
+        "damage": 1.5,
+        "color": "#00d151"
     }
 }
