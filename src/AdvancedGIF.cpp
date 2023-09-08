@@ -1,6 +1,6 @@
 //
 //  AdvancedGIF.cpp
-//  ExceptionCatcher
+//  ErrorCatcher
 //
 //  Created by KKahiru on 2023/04/06.
 //

@@ -66,7 +66,7 @@ void Title::draw() const
 {
 	//Scene::SetBackground(Color{U"#004599"});
 	m_effect.update();
-	FontAsset(U"Title.TitleFont")(U"例外キャッチャー")
+	FontAsset(U"Title.TitleFont")(U"エラーキャッチャー")
 	.drawAt(Vec2{ 400, 100 }, ColorF{ 0.75 });
 
 	m_startButton.draw(Scene::GetBackground()).draw(ColorF{ 1.0, m_startTransition.value() }).drawFrame(2);

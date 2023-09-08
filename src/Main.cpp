@@ -4,7 +4,7 @@
 
 void Main()
 {
-	Window::SetTitle(U"ExceptionCatcher");
+	Window::SetTitle(U"ErrorCatcher");
 	Scene::Resize(BaseSceneSize);
 	Scene::SetResizeMode(ResizeMode::Actual);
 	
