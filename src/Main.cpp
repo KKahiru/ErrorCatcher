@@ -15,6 +15,7 @@ void Main()
 	FontAsset::Register(U"Game.SymbolName", 20, Typeface::Light);
 	FontAsset::Register(U"Game.Explanation", 28);
 	FontAsset::Register(U"Game.Back", 32);
+	FontAsset::Register(U"Game.Brokenness", 16);
 	AudioAsset::Register(U"Brick", GMInstrument::Woodblock, PianoKey::C5, 0.2s, 0.1s);
 	
 	exceptionConfig = JSON::Load(Resource(U"resource/config/exception_list.json"));

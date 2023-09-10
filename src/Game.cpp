@@ -211,6 +211,8 @@ void Game::update()
 
 void Game::draw() const
 {
+	if (not isExplaining)
+		FontAsset(U"Game.Brokenness")(U"破壊されたデータ量: {}"_fmt(Format_uint32_Size(500 * brokenness))).draw(10, 10);
 	
 	//
 	// シンボルの描画
