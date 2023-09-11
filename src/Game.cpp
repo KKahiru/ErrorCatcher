@@ -75,7 +75,7 @@ void Game::update()
 		}
 	}
 	
-	if (not isExplaining)
+	if (not isExplaining and not hasEnded)
 	{
 		// 0.2秒間隔で例外の生成処理を行う
 		generateTick += Scene::DeltaTime();
@@ -174,7 +174,7 @@ void Game::update()
 						}
 						return true;
 					});
-					isExplaining = true;
+					hasEnded = true;
 				}
 				
 			}
@@ -202,7 +202,7 @@ void Game::update()
 			if (MouseL.down())
 			{
 				explanationState ++;
-				isExplaining = 0;
+				isExplaining = false;
 			}
 		default:
 			break;

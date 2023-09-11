@@ -57,8 +57,10 @@ private:
 	
 	Effect effect;
 	
-	bool isExplaining = 1;
-	
+	bool isExplaining = true;
+
+	bool hasEnded = false;
+
 	uint8 explanationState = 0;
 	
 	double brokenness = 0;
