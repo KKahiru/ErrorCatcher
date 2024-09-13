@@ -1,4 +1,4 @@
-# include "Game.hpp"
+﻿# include "Game.hpp"
 
 realizedExc::realizedExc(StringView type, uint16 lineNum)
 {
@@ -273,7 +273,7 @@ void Game::draw() const
 					h = dy - y;
 
 				FontAsset(U"Game.Explanation")
-					(U"【ゲーム説明】\n←の丸(エラー)を下に到達する前にクリックして消してください。\n（終了したい時は「戻るボタン」をクリックてください）")
+					(U"【ゲーム説明】\n←の丸(エラー)を下に到達する前にクリックして消してください。\n（終了したい時は「戻る」ボタンをクリックてください）")
 					.draw(Rect{ x, y, w, h });
 				break;
 			}
