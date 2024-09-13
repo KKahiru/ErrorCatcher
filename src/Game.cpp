@@ -74,7 +74,7 @@ void Game::update()
 			Cursor::SetPos(Cursor::Pos().x, SceneHeight - 5);
 		}
 	}
-	
+
 	if (not isExplaining and not hasEnded)
 	{
 		// 0.2秒間隔で例外の生成処理を行う
@@ -90,7 +90,7 @@ void Game::update()
 				generationProgress --;
 			}
 		}
-		
+
 		//
 		// 例外の更新作業
 		//
@@ -102,11 +102,11 @@ void Game::update()
 			const uint16 topY = topMargin  + lineHeight * item.invasionDegree;
 			const size_t yIndex = (1 - item.invasionDegree) / symbol;
 			const auto optionalDurabilityLine = AccessArray(symbolDurability, yIndex);
-			
+
 			size_t xIndex = 0;
-			
+
 			Optional<uint8> optionalDurability = none;
-			
+
 			// 破壊確認
 			if (optionalDurabilityLine)
 			{
@@ -119,7 +119,7 @@ void Game::update()
 				}
 				optionalDurability = AccessArray<uint8>( *optionalDurabilityLine, xIndex);
 			}
-			
+
 			if (Circle{ Arg::topLeft(leftX, topY), lineWidth / 2 }.leftClicked())
 			{
 				// クリック時の処理
@@ -131,7 +131,7 @@ void Game::update()
 				// シンボルに当たった時の処理
 				//
 				symbolDurability[yIndex][xIndex] --;
-				
+
 				brokenness += item.Damage() * 2;
 				// 爆発エフェクトの追加
 				effect.add([item, leftX, topY, lineWidth = this->lineWidth, explosionGIF = this->explosionGIF](double t)
@@ -142,7 +142,7 @@ void Game::update()
 				const double pan = double(item.lineNum * 2) / maxLine - 1;
 				explosionAudio.playOneShot(0.5, pan);
 				fallenExcList.remove_at(i);
-				
+
 				if (yIndex == 0 and symbolDurability[0][0] == 0)
 				{
 					//
@@ -176,7 +176,7 @@ void Game::update()
 					});
 					hasEnded = true;
 				}
-				
+
 			}
 		}
 	}
@@ -186,24 +186,14 @@ void Game::update()
 	switch (explanationState)
 	{
 		case 0:
-			if (MouseL.down())
-			{
-				explanationState ++;
-			}
-			break;
-		case 1:
 			if (Circle{ Arg::topLeft(leftMargin, topMargin), lineWidth / 2 }.leftClicked())
 			{
 				explanationState ++;
 				fallenExcList.pop_back();
-			}
-			break;
-		case 2:
-			if (MouseL.down())
-			{
-				explanationState ++;
 				isExplaining = false;
 			}
+			break;
+
 		default:
 			break;
 	}
@@ -213,7 +203,7 @@ void Game::draw() const
 {
 	if (not isExplaining)
 		FontAsset(U"Game.Brokenness")(U"破壊されたデータ量: {}"_fmt(Format_uint32_Size(500 * brokenness))).draw(10, 10);
-	
+
 	//
 	// シンボルの描画
 	//
@@ -227,7 +217,7 @@ void Game::draw() const
 			const JSON itemValue = itemObject.value;
 			const double x = symbolLeftMargin + (symbolWidth + symbolLeftMargin) * Parse<uint16>(itemObject.key);
 			const uint8 durability = symbolDurability[Parse<uint16>(lineObject.key)][Parse<uint16>(itemObject.key)];
-			
+
 			if (durability)
 			{
 				RectF box{x, y, symbolWidth, symbolHeight};
@@ -253,7 +243,7 @@ void Game::draw() const
 			}
 		}
 	}
-	
+
 	//
 	// 例外の描画
 	//
@@ -261,34 +251,19 @@ void Game::draw() const
 		const realizedExc& item = fallenExcList[i];
 		const uint16 leftX = leftMargin * (item.lineNum + 1) + lineWidth * item.lineNum;
 		const uint16 topY = topMargin  + lineHeight * item.invasionDegree;
-		
+
 		Circle{ Arg::topLeft(leftX, topY), lineWidth / 2 }.draw(item.Color());
 		FontAsset(U"Game.ExcName")(item.DisplayName())
 			.drawAt(leftX + lineWidth / 2, topY + lineWidth / 2, Palette::Black);
 	}
-	
+
 	//
 	// 説明の描画
 	//
 	{
-		
+
 		switch (explanationState) {
 			case 0:
-			{
-				const uint16 x = lineWidth + leftMargin * 2,
-					y = topMargin * 2,
-				dx = SceneWidth - leftMargin,
-				dy = SceneHeight - topMargin,
-				w = dx - x,
-				h = dy - y;
-				
-				FontAsset(U"Game.Explanation")
-					(U"※このゲームのプレイ中は、\nマウスカーソルがウィンドウ外に出ないようになります。\n「戻る」ボタンでいつでもメニュー画面に戻れます。\n（どこかをクリックしてください）")
-					.draw(Rect{ x, y, w, h });
-				break;
-			}
-				
-			case 1:
 			{
 				const uint16 x = lineWidth + leftMargin * 2,
 					y = topMargin * 2,
@@ -296,34 +271,19 @@ void Game::draw() const
 					dy = SceneHeight - topMargin,
 					w = dx - x,
 					h = dy - y;
-				
+
 				FontAsset(U"Game.Explanation")
-					(U"←はソフトウェアに発生したエラー\n（専門用語では「例外」）であり、\n上から降ってきます。\nクリックすると取り除く事ができます。\n（エラーをクリックしてください）")
+					(U"【ゲーム説明】\n←の丸(エラー)を下に到達する前にクリックして消してください。\n（終了したい時は「戻るボタン」をクリックてください）")
 					.draw(Rect{ x, y, w, h });
 				break;
 			}
-				
-			case 2:
-			{
-				const uint16 x = leftMargin,
-					dx = SceneWidth - leftMargin,
-					w = dx - x,
-					dy = SceneHeight * 0.8 - topMargin,
-					h = FontAsset(U"Game.Explanation").fontSize() * 8,
-					y = dy - h;
-				
-				FontAsset(U"Game.Explanation")
-				(U"↓の四角と先程のエラーが当たると爆発し、ダメージが入ります。\n特に一番下の「サーバー」は最優先で守る必要があり\nサーバーを破壊されるとゲームオーバーになります。\n（クリックしてゲーム開始！）")
-				.draw(Rect{ x, y, w, h });
-				break;
-			}
-				
+
 			default:
 				break;
 		}
 	}
 	effect.update();
-	
+
 	backButton.rounded(5).draw(ColorF{ 0, 0.5 }).drawFrame();
 	FontAsset(U"Game.Back")(U"戻る").drawAt(backButton.center(), Palette::White);
 }

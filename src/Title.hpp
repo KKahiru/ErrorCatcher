@@ -20,9 +20,9 @@ private:
 
 	Rect m_exitButton{ Arg::center = CenterPos.movedBy(0, 150), 300, 60 };
 	Transition m_exitTransition{ 0.4s, 0.2s };
-	
+
 	Effect m_effect;
-	
+
 	double m_decorationDelta = 0;
 };
 

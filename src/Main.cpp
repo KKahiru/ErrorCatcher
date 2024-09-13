@@ -7,7 +7,7 @@ void Main()
 	Window::SetTitle(U"ErrorCatcher");
 	Scene::Resize(BaseSceneSize);
 	Scene::SetResizeMode(ResizeMode::Actual);
-	
+
 	FontAsset::Register(U"Title.TitleFont", FontMethod::SDF, 50, Typeface::Bold);
 	FontAsset::Register(U"Menu", FontMethod::MSDF, 40, Typeface::Medium);
 	FontAsset::Register(U"GameScore", 30, Typeface::Light);
@@ -17,10 +17,10 @@ void Main()
 	FontAsset::Register(U"Game.Back", 32);
 	FontAsset::Register(U"Game.Brokenness", 16);
 	AudioAsset::Register(U"Brick", GMInstrument::Woodblock, PianoKey::C5, 0.2s, 0.1s);
-	
+
 	exceptionConfig = JSON::Load(Resource(U"resource/config/exception_list.json"));
 	symbolConfig = JSON::Load(Resource(U"resource/config/symbol_list.json"));
-	
+
 	for (const auto& object : exceptionConfig)
 	{
 		ExcTypeList.push_back(object.key);
@@ -29,7 +29,7 @@ void Main()
 	App manager;
 	manager.add<Title>(SceneState::Title);
 	manager.add<Game>(SceneState::Game);
-	
+
 	while (System::Update()) {
 		// 実際のシーンのサイズを取得する
 		const Size currentSceneSize = Scene::Size();

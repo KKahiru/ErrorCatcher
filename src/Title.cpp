@@ -59,7 +59,7 @@ void Title::update()
 		m_effect.add<Decolation>();
 		m_decorationDelta --;
 	}
-	
+
 }
 
 void Title::draw() const

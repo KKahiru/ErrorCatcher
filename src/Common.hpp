@@ -1,6 +1,6 @@
 # pragma once
 
-# include <Siv3D.hpp> // OpenSiv3D v0.6.8
+# include <Siv3D.hpp> // OpenSiv3D v0.6.15
 
 enum class SceneState
 {
@@ -14,7 +14,7 @@ struct GameData
 {
 	// 直前のゲームのスコア
 	Optional<int32> lastGameScore;
-	
+
 };
 
 inline String Format_uint32_Size(uint32 byte)
@@ -26,7 +26,7 @@ inline String Format_uint32_Size(uint32 byte)
 		U"TB"
 	};
 	int i = 0;
-	
+
 	if (byte < 1000)
 	{
 		return Format(byte) + U"バイト";

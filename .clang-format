@@ -1,0 +1,9 @@
+---
+BasedOnStyle: WebKit
+AllowShortLambdasOnASingleLine: Empty
+BreakBeforeBraces: Allman
+EmptyLineAfterAccessModifier: Always
+IndentPPDirectives: BeforeHash
+SpaceBeforeCpp11BracedList: false
+TabWidth: 4
+UseTab: ForIndentation
